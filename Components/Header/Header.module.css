@@ -1,0 +1,253 @@
+/* Main wrapper */
+.headerWrapper {
+  width: 100%;
+  background: #062247;
+  color: #fff;
+  font-family: "Arial", sans-serif;
+}
+
+/* Top Bar */
+.topBar {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  padding: 6px 40px;
+  font-size: 13px;
+  background: #062247;
+  border-bottom: 1px solid rgba(255, 255, 255, 0.2);
+}
+
+.topBarLeft {
+  display: flex;
+  align-items: center;
+  gap: 12px;
+}
+
+.sep {
+  opacity: 0.5;
+}
+
+.topBarRight {
+  display: flex;
+  align-items: center;
+  gap: 15px;
+  font-size: 14px;
+}
+
+.topBarRight svg {
+  cursor: pointer;
+  font-size: 16px;
+}
+
+.pipe {
+  opacity: 0.4;
+  margin: 0 8px;
+}
+
+.langCurrency {
+  display: flex;
+  align-items: center;
+  gap: 4px;
+  cursor: pointer;
+}
+
+/* Main Header */
+.mainHeader {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  padding: 18px 40px;
+}
+
+.logo {
+  font-size: 38px;
+  font-weight: bold;
+  text-transform: lowercase;
+}
+
+/* Support section */
+.supportBox {
+  display: flex;
+  align-items: center;
+  gap: 10px;
+  color: #fff;
+}
+
+.supportIcon {
+  font-size: 28px;
+}
+
+.supportTitle {
+  margin: 0;
+  font-size: 14px;
+  font-weight: bold;
+}
+
+.supportSub {
+  margin: 0;
+  font-size: 12px;
+  opacity: 0.7;
+}
+
+/* Search */
+/* SEARCH BOX */
+.searchBox {
+  display: flex;
+  width: 100%;
+  max-width: 900px;             /* Responsive size */
+  border-radius: 8px;           /* Rounded corners */
+  overflow: hidden;
+  background: #ffffff;          /* White background */
+  border: none;                 /* No border */
+}
+
+/* Input */
+.searchBox input {
+  flex: 1;
+  padding: 14px 18px;
+  border: none;
+  outline: none;
+  background: #ffffff;          /* White input */
+  font-size: 15px;
+  color: #222;
+}
+
+/* Search Button */
+.searchBox button {
+  width: 60px;
+  border: none;
+  background: #28a879;          /* Green button */
+  cursor: pointer;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+}
+
+/* Search Icon */
+.searchIcon {
+  color: #ffffff;               /* White icon */
+  font-size: 20px;
+}
+
+
+/* Icons */
+.menuIcons {
+  display: flex;
+  align-items: center;
+  gap: 22px;
+  color: #fff;
+}
+
+.iconItem,
+.cartItem {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  font-size: 12px;
+  cursor: pointer;
+}
+
+.cartItem {
+  position: relative;
+}
+
+.cartBadge {
+  position: absolute;
+  top: -5px;
+  right: -5px;
+  background: #2ecc71;
+  color: #fff;
+  font-size: 10px;
+  padding: 2px 5px;
+  border-radius: 50%;
+}
+/* ---------------------------------------- */
+/* NAVIGATION MENU + DROPDOWNS (NEW)        */
+/* ---------------------------------------- */
+/* NAV MENU BAR */
+/* NAV MENU BAR */
+.navMenu {
+  background: #ffffff;
+  padding: 12px 40px;
+  border-top: 1px solid rgba(0, 0, 0, 0.1);
+}
+
+.navMenu ul {
+  display: flex;
+  gap: 40px;
+  list-style: none;
+  padding: 0;
+  margin: 0;
+}
+
+.navMenu li {
+  position: relative;
+  font-size: 14px;
+  font-weight: 600;
+  color: #062247;
+  cursor: pointer;
+  padding: 6px 0;
+}
+
+
+/* DROPDOWN PANEL BOX */
+
+.dropdownMenu {
+  position: absolute;
+  top: 40px;
+  left: 0;
+  width: 240px;
+
+  background: #ffffff;
+  border-radius: 6px;
+  padding: 12px 0;
+
+  box-shadow: 0 8px 22px rgba(0, 0, 0, 0.2);
+
+  opacity: 0;
+  visibility: hidden;
+  transform: translateY(12px);
+  transition: all 0.25s ease-out;
+
+  z-index: 999;
+
+  display: block !important;   /* 🔥 FIX 1: force UL to be block layout */
+}
+
+/* STACKED LIST ITEMS */
+.dropdownMenu li {
+  padding: 12px 20px;
+
+  display: flex !important;     /* horizontal: text + arrow */
+  justify-content: space-between;
+  align-items: center;
+
+  font-size: 14px;
+  font-weight: 400;
+  color: #333;
+
+  transition: 0.2s ease;
+}
+
+/* HOVER EFFECT */
+.dropdownMenu li:hover {
+  background: #f1f5ff;
+  color: #062247;
+}
+
+/* SHOW DROPDOWN ON HOVER */
+.dropdown:hover .dropdownMenu {
+  opacity: 1;
+  visibility: visible;
+  transform: translateY(0);
+}
+
+/* SUB ARROW ICON */
+.subArrow {
+  font-size: 15px;
+  opacity: 0.5;
+}
+
+.dropdownMenu li:hover .subArrow {
+  opacity: 1;
+}
