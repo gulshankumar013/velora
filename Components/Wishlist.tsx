@@ -3,6 +3,7 @@
 import Image from "next/image";
 import { X, Heart, ShoppingBag, Search } from "lucide-react";
 import { useState } from "react";
+import BottomFeatures from "./BottomFeatures";
 
 const Wishlist = () => {
   const [items, setItems] = useState([
@@ -80,7 +81,7 @@ const Wishlist = () => {
 
       </div>
 
-      {/* Bottom Features */}
+      {/* //Bottom Features
       <div className="w-full bg-[#e88f8f] text-white mt-14 py-4">
         <div className="max-w-6xl mx-auto flex justify-between text-sm font-medium">
 
@@ -101,7 +102,8 @@ const Wishlist = () => {
           </div>
 
         </div>
-      </div>
+      </div> */}
+      <BottomFeatures/>
     </div>
   );
 };

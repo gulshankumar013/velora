@@ -3,6 +3,7 @@
 import { useState } from "react";
 import Image from "next/image";
 import { Trash2, Minus, Plus, Tag, ArrowRight } from "lucide-react";
+import BottomFeatures from "./BottomFeatures";
 
 type CartItem = {
   id: number;
@@ -183,6 +184,8 @@ export default function CartPage() {
         </div>
 
       </div>
+      <BottomFeatures/>
     </div>
+    
   );
 }

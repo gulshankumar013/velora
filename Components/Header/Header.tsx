@@ -1,140 +1,124 @@
 "use client";
 
-import React, { useState } from "react";
-import styles from "./Header.module.css";
+import { useEffect, useState } from "react";
 import { useRouter } from "next/navigation";
-
-import { FaFacebookF, FaInstagram, FaYoutube, FaWhatsapp } from "react-icons/fa";
 import { IoIosSearch } from "react-icons/io";
 import { Heart, ShoppingCart, UserRound } from "lucide-react";
 import LoginModal from "../LoginModal";
+import Image from "next/image";
 
-
-
-const Header = () => {
+export default function Header() {
   const router = useRouter();
   const [openLogin, setOpenLogin] = useState(false);
-
+  const [isLoggedIn, setIsLoggedIn] = useState(false);
   const go = (path: string) => router.push(path);
+
+  // Sync login state
+  useEffect(() => {
+    const syncLogin = () => setIsLoggedIn(!!sessionStorage.getItem("token"));
+    syncLogin();
+    window.addEventListener("login-success", syncLogin);
+    window.addEventListener("logout-success", syncLogin);
+    return () => {
+      window.removeEventListener("login-success", syncLogin);
+      window.removeEventListener("logout-success", syncLogin);
+    };
+  }, []);
 
   return (
     <>
-      <header className={styles.headerWrapper}>
-        {/* TOP BAR */}
-        <div className={styles.topBar}>
-          <div className={styles.topBarLeft}>
-            <span>FREE SHIPPING ON ORDERS OVER ₹150</span>
-            <span className={styles.sep}>|</span>
-            <span>📞 +91 98765 43210</span>
-          </div>
+      <header className="w-full bg-[#062247] text-white">
 
-          <div className={styles.topBarRight}>
-            <FaFacebookF />
-            <FaInstagram />
-            <FaYoutube />
-            <FaWhatsapp />
-            <span className={styles.pipe}>|</span>
-          </div>
-        </div>
+        {/* Main Header */}
+        <div className="flex items-center justify-between px-4 md:px-10 py-4 gap-4">
 
-        {/* MAIN HEADER */}
-        <div className={styles.mainHeader}>
           {/* Logo */}
-          <div className={styles.logo} onClick={() => go("/")}>
-            Velouraz
+          <div
+            className="flex items-center gap-2 text-3xl font-bold lowercase cursor-pointer"
+            onClick={() => go("/")}
+          >
+            VELOURAZ
+            <Image src="/login1.png" alt="logo" width={100} height={150} />
           </div>
 
-          {/* Support Box */}
-          <div className={styles.supportBox}>
-            <div className={styles.supportIcon}>💬</div>
-            <div>
-              <p className={styles.supportTitle}>EXPERT SUPPORT</p>
-              <p className={styles.supportSub}>Available 24/7 via chat</p>
-            </div>
-          </div>
-
-          {/* Search Box */}
-          <div className={styles.searchBox}>
-            <input type="text" placeholder="Search products" />
-            <button>
-              <IoIosSearch className={styles.searchIcon} />
+          {/* Search */}
+          <div className="hidden md:flex flex-1 max-w-2xl bg-white rounded-lg overflow-hidden">
+            <input
+              type="text"
+              placeholder="Search products"
+              className="flex-1 px-4 py-2 text-gray-800 outline-none"
+            />
+            <button className="w-12 bg-[#28a879] flex items-center justify-center">
+              <IoIosSearch className="text-white text-lg" />
             </button>
           </div>
 
-          {/* ICON BUTTONS */}
-          <div className={styles.menuIcons}>
-            {/* ACCOUNT */}
-            <button className={styles.iconItem} onClick={() => setOpenLogin(true)}>
+          {/* Icons */}
+          <div className="flex items-center gap-6 text-xs">
+
+            {/* ACCOUNT / PROFILE */}
+            <button
+              className="flex flex-col items-center"
+              onClick={() => {
+                if (isLoggedIn) {
+                  router.push("/profile");
+                } else {
+                  setOpenLogin(true);
+                }
+              }}
+            >
               <UserRound />
-              <span>ACCOUNT</span>
+              {isLoggedIn ? "PROFILE" : "ACCOUNT"}
             </button>
 
             {/* WISHLIST */}
-            <button className={styles.iconItem} onClick={() => go("/wishlist")}>
+            <button onClick={() => go("/wishlist")} className="flex flex-col items-center">
               <Heart />
-              <span>WISHLIST</span>
+              WISHLIST
             </button>
 
             {/* CART */}
-            <button className={styles.cartItem} onClick={() => go("/cart")}>
+            <button onClick={() => go("/cart")} className="relative flex flex-col items-center">
               <ShoppingCart />
-              <span>CART</span>
-              <span className={styles.cartBadge}>0</span>
+              CART
+              <span className="absolute -top-1 -right-1 bg-green-500 text-white text-[10px] px-1.5 rounded-full">
+                0
+              </span>
             </button>
           </div>
         </div>
 
-        {/* NAV MENU */}
-        <nav className={styles.navMenu}>
-          <ul>
-            <li className={styles.dropdown}>
-              <span>HOME</span>
-              <ul className={styles.dropdownMenu}>
-                <li onClick={() => go("/home-style-1")}>Home Style 1</li>
-                <li onClick={() => go("/home-style-2")}>Home Style 2</li>
-                <li onClick={() => go("/home-style-3")}>Home Style 3</li>
-              </ul>
-            </li>
+        {/* Mobile Search */}
+        <div className="px-4 pb-3 md:hidden">
+          <div className="flex bg-white rounded-lg overflow-hidden">
+            <input
+              type="text"
+              placeholder="Search products"
+              className="flex-1 px-4 py-2 text-gray-800 outline-none"
+            />
+            <button className="w-12 bg-[#28a879] flex items-center justify-center">
+              <IoIosSearch className="text-white text-lg" />
+            </button>
+          </div>
+        </div>
 
-            <li className={styles.dropdown}>
-              <span>PAGES</span>
-              <ul className={styles.dropdownMenu}>
-                <li onClick={() => go("/about")}>About Us</li>
-                <li onClick={() => go("/contact")}>Contact Us</li>
-                <li onClick={() => go("/portfolio")}>Portfolio</li>
-                <li onClick={() => go("/faq")}>FAQs</li>
-                <li onClick={() => go("/brands")}>Our Brands</li>
-                <li onClick={() => go("/account")}>My Account</li>
-                <li onClick={() => go("/store-locations")}>Store Locations</li>
-                <li onClick={() => go("/404")}>404</li>
-              </ul>
-            </li>
-
-            <li className={styles.dropdown}>
-              <span>BLOG</span>
-              <ul className={styles.dropdownMenu}>
-                <li onClick={() => go("/blog/latest")}>Latest Posts</li>
-                <li onClick={() => go("/blog/trends")}>Trends</li>
-                <li onClick={() => go("/blog/tips")}>Tips</li>
-              </ul>
-            </li>
-
-            <li className={styles.dropdown}>
-              <span>BUY NOW</span>
-              <ul className={styles.dropdownMenu}>
-                <li onClick={() => go("/amazon")}>Amazon</li>
-                <li onClick={() => go("/flipkart")}>Flipkart</li>
-                <li onClick={() => go("/shopify")}>Shopify</li>
-              </ul>
-            </li>
+        {/* Nav Menu */}
+        <nav className="bg-white text-[#062247] px-4 md:px-10 py-3 border-t">
+          <ul className="flex gap-6 md:gap-10 text-sm font-semibold">
+            {["HOME", "PAGES", "BLOG", "BUY NOW"].map((item) => (
+              <li key={item} className="relative group cursor-pointer">
+                {item}
+                <ul className="absolute left-0 top-8 w-56 bg-white shadow-xl rounded-md opacity-0 invisible group-hover:opacity-100 group-hover:visible transition-all">
+                  <li className="px-4 py-2 hover:bg-blue-50" onClick={() => go("/")}>Example</li>
+                  <li className="px-4 py-2 hover:bg-blue-50">Another</li>
+                </ul>
+              </li>
+            ))}
           </ul>
         </nav>
       </header>
 
-      {/* SHOW LOGIN MODAL */}
       {openLogin && <LoginModal onClose={() => setOpenLogin(false)} />}
     </>
   );
-};
-
-export default Header;
+}

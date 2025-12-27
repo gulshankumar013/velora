@@ -71,6 +71,7 @@ const LoginModal = ({ onClose }: { onClose: () => void }) => {
 
       if (res.data.token) {
         sessionStorage.setItem("token", res.data.token);
+        window.dispatchEvent(new Event("login-success"));
       }
 
       setTimeout(() => onClose(), 500);
@@ -194,13 +195,13 @@ const LoginModal = ({ onClose }: { onClose: () => void }) => {
                       {showPassword ? <EyeOff size={18} /> : <Eye size={18} />}
                     </button>
                   </div>
-
                   <button
-                    className="w-full bg-[#00a874] text-white py-2.5 rounded-full text-sm hover:bg-[#009060]"
+                    className="w-40 mx-auto block bg-[#00a874] text-white py-2.5 rounded-lg text-sm hover:bg-[#009060]"
                     disabled={loading}
                   >
                     {loading ? "Signing In..." : "Sign In"}
                   </button>
+
 
                 </form>
 
@@ -208,23 +209,24 @@ const LoginModal = ({ onClose }: { onClose: () => void }) => {
 
                 {/* Social Login */}
                 <div className="relative my-5">
-                  <div className="border-t"></div>
+                  <div className="border-t w-2/3 mx-auto"></div>
                   <span className="absolute left-1/2 -translate-x-1/2 -top-2 bg-white px-2 text-xs text-gray-500">
                     OR Continue With
                   </span>
                 </div>
 
+
                 <div className="flex gap-4 justify-center mt-4">
                   <button className="flex items-center gap-2 bg-white border px-3 py-1.5 rounded-lg">
-                    <Image src="/google.svg" width={15} height={15} alt="Google" /> Google
+                    <Image src="/google.svg" width={15} height={15} alt="Google" />
                   </button>
 
                   <button className="flex items-center gap-2 bg-white border px-3 py-1.5 rounded-lg">
-                    <Image src="/apple.svg" width={15} height={15} alt="Apple" /> Apple
+                    <Image src="/apple.svg" width={15} height={15} alt="Apple" />
                   </button>
 
                   <button className="flex items-center gap-2 bg-white border px-3 py-1.5 rounded-lg">
-                    <Image src="/fb.svg" width={15} height={15} alt="Facebook" /> Facebook
+                    <Image src="/fb.svg" width={15} height={15} alt="Facebook" />
                   </button>
                 </div>
 
