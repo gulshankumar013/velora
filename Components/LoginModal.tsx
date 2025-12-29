@@ -71,6 +71,7 @@ const LoginModal = ({ onClose }: { onClose: () => void }) => {
 
       if (res.data.token) {
         sessionStorage.setItem("token", res.data.token);
+        sessionStorage.setItem("userId",res.data.id);
         window.dispatchEvent(new Event("login-success"));
       }
 
